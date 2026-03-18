@@ -1,0 +1,1 @@
+g++ -o solution ./solution.cpp
