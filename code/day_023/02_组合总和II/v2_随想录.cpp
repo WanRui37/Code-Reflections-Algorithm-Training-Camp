@@ -1,29 +1,32 @@
 class Solution {
 private:
-    vector<vector<int>> result; // 存放结果集
-    vector<int> path; // 符合条件的结果
-    void backtracking(int targetSum, int k, int sum, int startIndex) {
-        if (sum > targetSum) { // 剪枝操作
-            return; 
+    vector<vector<int>> result;
+    vector<int> path;
+    void backtracking(vector<int>& candidates, int target, int sum, int startIndex) {
+        if (sum == target) {
+            result.push_back(path);
+            return;
         }
-        if (path.size() == k) {
-            if (sum == targetSum) result.push_back(path);
-            return; // 如果path.size() == k 但sum != targetSum 直接返回
-        }
-        for (int i = startIndex; i <= 9 - (k - path.size()) + 1; i++) { // 剪枝
-            sum += i; // 处理
-            path.push_back(i); // 处理
-            backtracking(targetSum, k, sum, i + 1); // 注意i+1调整startIndex
-            sum -= i; // 回溯
-            path.pop_back(); // 回溯
+        for (int i = startIndex; i < candidates.size() && sum + candidates[i] <= target; i++) {
+            // 要对同一树层使用过的元素进行跳过
+            if (i > startIndex && candidates[i] == candidates[i - 1]) {
+                continue;
+            }
+            sum += candidates[i];
+            path.push_back(candidates[i]);
+            backtracking(candidates, target, sum, i + 1); // 和39.组合总和的区别1，这里是i+1，每个数字在每个组合中只能使用一次
+            sum -= candidates[i];
+            path.pop_back();
         }
     }
 
 public:
-    vector<vector<int>> combinationSum3(int k, int n) {
-        result.clear(); // 可以不加
-        path.clear();   // 可以不加
-        backtracking(n, k, 0, 1);
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        path.clear();
+        result.clear();
+        // 首先把给candidates排序，让其相同的元素都挨在一起。
+        sort(candidates.begin(), candidates.end());
+        backtracking(candidates, target, 0, 0);
         return result;
     }
 };
