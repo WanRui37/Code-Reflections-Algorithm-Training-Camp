@@ -1,0 +1,25 @@
+class Solution {
+private:
+    TreeNode* traversal(TreeNode* cur, TreeNode* p, TreeNode* q) {
+        if (cur == NULL) return cur;
+                                                        // 中
+        if (cur->val > p->val && cur->val > q->val) {   // 左
+            TreeNode* left = traversal(cur->left, p, q);
+            if (left != NULL) {
+                return left;
+            }
+        }
+
+        if (cur->val < p->val && cur->val < q->val) {   // 右
+            TreeNode* right = traversal(cur->right, p, q);
+            if (right != NULL) {
+                return right;
+            }
+        }
+        return cur;
+    }
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        return traversal(root, p, q);
+    }
+};
