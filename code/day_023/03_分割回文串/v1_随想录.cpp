@@ -1,40 +1,38 @@
 class Solution {
 private:
-    const string letterMap[10] = {
-        "", // 0
-        "", // 1
-        "abc", // 2
-        "def", // 3
-        "ghi", // 4
-        "jkl", // 5
-        "mno", // 6
-        "pqrs", // 7
-        "tuv", // 8
-        "wxyz", // 9
-    };
-public:
-    vector<string> result;
-    string s;
-    void backtracking(const string& digits, int index) {
-        if (index == digits.size()) {
-            result.push_back(s);
+    vector<vector<string>> result;
+    vector<string> path; // 放已经回文的子串
+    void backtracking (const string& s, int startIndex) {
+        // 如果起始位置已经大于s的大小，说明已经找到了一组分割方案了
+        if (startIndex >= s.size()) {
+            result.push_back(path);
             return;
         }
-        int digit = digits[index] - '0';        // 将index指向的数字转为int
-        string letters = letterMap[digit];      // 取数字对应的字符集
-        for (int i = 0; i < letters.size(); i++) {
-            s.push_back(letters[i]);            // 处理
-            backtracking(digits, index + 1);    // 递归，注意index+1，一下层要处理下一个数字了
-            s.pop_back();                       // 回溯
+        for (int i = startIndex; i < s.size(); i++) {
+            if (isPalindrome(s, startIndex, i)) {   // 是回文子串
+                // 获取[startIndex,i]在s中的子串
+                string str = s.substr(startIndex, i - startIndex + 1);
+                path.push_back(str);
+            } else {                                // 不是回文，跳过
+                continue;
+            }
+            backtracking(s, i + 1); // 寻找i+1为起始位置的子串
+            path.pop_back(); // 回溯过程，弹出本次已经添加的子串
         }
     }
-    vector<string> letterCombinations(string digits) {
-        s.clear();
-        result.clear();
-        if (digits.size() == 0) {
-            return result;
+    bool isPalindrome(const string& s, int start, int end) {
+        for (int i = start, j = end; i < j; i++, j--) {
+            if (s[i] != s[j]) {
+                return false;
+            }
         }
-        backtracking(digits, 0);
+        return true;
+    }
+public:
+    vector<vector<string>> partition(string s) {
+        result.clear();
+        path.clear();
+        backtracking(s, 0);
         return result;
     }
 };

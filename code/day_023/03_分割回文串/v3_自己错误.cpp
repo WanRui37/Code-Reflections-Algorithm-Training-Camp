@@ -1,37 +1,27 @@
 class Solution {
 public:
-    vector<string> result;
-    string path;
-    unordered_map<string, string> map={
-        {'2':'abc',
-         '3':'def',
-         '4':'ghi',
-         '5':'jkl',
-         '6':'mno',
-         '7':'pqrs',
-         '8':'tuv',
-         '9':'wxyz'}
-    };
+    vector<vector<string>> result;
+    vector<string> path;
 
-    void backtracking(string digits, int index){
-        if(path.size() == digits.size()){
+    void back(string s, int index){
+        if(left > right){
             result.push_back(path);
-            return ;
+            return;
         }
 
-        string list = map[digits[index]];
-
-        for(int i=0; i<list.size(); i++){
-            path += list[i];
-            backtracking(digits);
-            path -= list[i];
+        for(int i=left; i<right; i++){
+            if(s[i] != s[right-i]){
+                return ;
+            }
         }
+        path.push_back(s[left:right]);
+
+        for()
+        back(s, left, right)
     }
 
-    vector<string> letterCombinations(string digits) {
-        result.clear();
-        path.clear();
-        backtracking(digits, 0);
+    vector<vector<string>> partition(string s) {
+        back(s, 0);
         return result;
     }
 };
