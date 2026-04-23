@@ -13,9 +13,9 @@
 
 | 序号 | 题号 | 种类 | 题目 | 难度 | 第一次 | 第二次 |
 |---|---|---|---|---|---|---|
-| 1 | 1 | 哈希 | 两数之和 | <span style="color: green;">简单</span> | √ |  |
-| 2 | 49 | 哈希 | 字母异位词分组 | <span style="color: #d4a106;">中等</span> | √ |  |
-| 3 | 128 | 哈希 | 最长连续序列 | <span style="color: #d4a106;">中等</span> | √ |  |
+| 1 | 1 | 哈希 | 两数之和 | <span style="color: green;">简单</span> | √ | √ |
+| 2 | 49 | 哈希 | 字母异位词分组 | <span style="color: #d4a106;">中等</span> | √ | √ |
+| 3 | 128 | 哈希 | 最长连续序列 | <span style="color: #d4a106;">中等</span> | √ | √ |
 | 4 | 283 | 双指针 | 移动零 | <span style="color: green;">简单</span> | √ |  |
 | 5 | 11 | 双指针 | 盛最多水的容器 | <span style="color: #d4a106;">中等</span> | √ |  |
 | 6 | 15 | 双指针 | 三数之和 | <span style="color: #d4a106;">中等</span> | √ |  |
